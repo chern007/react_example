@@ -1,5 +1,6 @@
 import React from "react";
 import Task from "./Task.js";
+import PropTypes from 'prop-types';
 
 
 class Tasks extends React.Component {
@@ -12,7 +13,7 @@ class Tasks extends React.Component {
 
                 this.props.tasks.map((e) =>
 
-                    <Task task = {e}/>
+                    <Task task = {e} key={e.id}/>
 
                 )
 
@@ -22,6 +23,11 @@ class Tasks extends React.Component {
 
     }
 
+}
+
+Tasks.propTypes = {
+
+    tasks: PropTypes.array.isRequired
 }
 
 export default Tasks;
