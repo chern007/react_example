@@ -13,7 +13,12 @@ class Tasks extends React.Component {
 
                 this.props.tasks.map((e) =>
 
-                    <Task task = {e} key={e.id}/>
+                    <Task
+                        task={e}
+                        key={e.id}
+                        deleteTask={this.props.deleteTask}
+                        checkDone={this.props.checkDone}
+                    />
 
                 )
 
