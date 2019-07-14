@@ -1,9 +1,12 @@
 import React from 'react';
 import './App.css';
-import tasks from "./sample/tasks.json"
+import tasks from "./sample/tasks.json";
 
-import Tasks from "./components/Tasks.js"
+import Tasks from "./components/Tasks.js";
 import TaskForm from './components/TaskForm';
+import Post from './components/Post';
+
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 class App extends React.Component {
 
@@ -35,9 +38,9 @@ class App extends React.Component {
 
   }
 
-  deleteTask = (id)=>{
+  deleteTask = (id) => {
 
-    const refreshTasks = this.state.tasks.filter(task => task.id !== id );
+    const refreshTasks = this.state.tasks.filter(task => task.id !== id);
 
     this.setState({
 
@@ -47,12 +50,12 @@ class App extends React.Component {
 
   }
 
-  checkDone = (id)=>{
+  checkDone = (id) => {
 
     const refreshTasks = this.state.tasks.map(task => {
 
       if (task.id === id) {
-        
+
         task.done = !task.done;
 
       }
@@ -70,19 +73,46 @@ class App extends React.Component {
   }
 
   render() {
+
     return (
 
-      <div>
-        <TaskForm addTask={this.addTask} />
-        <Tasks tasks={this.state.tasks} deleteTask={this.deleteTask} checkDone={this.checkDone}/>
-      </div>
+      <Router>
 
+        <Link to="/">Home</Link>
+        <br />
+        <Link to="/posts">Posts</Link>
+        <br />
+
+
+        <Route exact path="/" render={() => {
+
+          return <div>
+            <TaskForm addTask={this.addTask} />
+
+            <Tasks
+              tasks={this.state.tasks}
+              deleteTask={this.deleteTask}
+              checkDone={this.checkDone}
+            />
+
+          </div>
+
+        }}>
+
+        </Route>
+
+        <Route path="/posts" render={() => {
+
+          return <Post />
+
+        }}>
+
+        </Route>
+
+      </Router>
 
     );
   }
-
-
-
 
 }
 
